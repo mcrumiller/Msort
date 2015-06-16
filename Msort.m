@@ -1683,10 +1683,10 @@ if(feature3==1)
             if(~any(ind)),continue; end
             feat1=features_temp(ind,feature1);
             if(optimize_width)
-                edges=best_bin_width(feat1);
-                edge_diff=edges(2)-edges(1);
-                num_bins=ceil((maxFeat-minFeat)/edge_diff);
-                edges=linspace(minFeat,maxFeat,num_bins);
+                [~,edges]=best_bin_width(feat1);
+                %edge_diff=edges(2)-edges(1);
+                %num_bins=ceil((maxFeat-minFeat)/edge_diff);
+                %edges=linspace(minFeat,maxFeat,num_bins);
                 % double the X to make histogram
                 x=[reshape(repmat(edges,2,1),1,[]) edges(end-1:-1:1)];
             end
@@ -1768,13 +1768,15 @@ else
             
             feat1=features_temp(ind,feature1); feat2=features_temp(ind,feature2);
             if(optimize_width)
-                edgesX=best_bin_width(feat1); edgesY=best_bin_width(feat2);
-                edge_diffX=edgesX(2)-edgesX(1);
-                edge_diffY=edgesY(2)-edgesY(1);
-                num_binsX=ceil((maxFeat1-minFeat1)/edge_diffX);
-                num_binsY=ceil((maxFeat2-minFeat2)/edge_diffY);
-                edgesX=linspace(minFeat1,maxFeat1,num_binsX);
-                edgesY=linspace(minFeat2,maxFeat2,num_binsY);
+                [~,edgesX]=fdrule(feat1);
+                [~,edgesY]=fdrule(feat2);
+                %edgesX=best_bin_width(feat1); edgesY=best_bin_width(feat2);
+                %edge_diffX=edgesX(2)-edgesX(1);
+                %edge_diffY=edgesY(2)-edgesY(1);
+                %num_binsX=ceil((maxFeat1-minFeat1)/edge_diffX);
+                %num_binsY=ceil((maxFeat2-minFeat2)/edge_diffY);
+                %edgesX=linspace(minFeat1,maxFeat1,num_binsX);
+                %edgesY=linspace(minFeat2,maxFeat2,num_binsY);
                 % Build x-coords for the eight corners of each bar.
                 dX = edgesX(2)-edgesX(1);
                 xx = [edgesX edgesX(end)+dX];
